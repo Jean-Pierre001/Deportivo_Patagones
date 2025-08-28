@@ -14,6 +14,10 @@
       <i class="fas fa-tachometer-alt"></i>
       <span>Dashboard</span>
     </a>
+    <a href="partners.php" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition">
+      <i class="fas fa-user-friends"></i>
+      <span>Socios</span>
+    </a>
     <a href="players.php" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition">
       <i class="fas fa-user-friends"></i>
       <span>Deportistas</span>
@@ -21,6 +25,10 @@
     <a href="rentals.php" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition">
       <i class="fas fa-calendar-check"></i>
       <span>Alquileres</span>
+    </a>
+    <a href="calendar.php" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition">
+      <i class="fas fa-calendar"></i>
+      <span>Calendario</span>
     </a>
     <a href="stock.php" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition">
       <i class="fas fa-box"></i>
