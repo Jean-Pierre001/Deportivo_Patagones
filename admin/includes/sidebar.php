@@ -1,11 +1,11 @@
-<!-- Sidebar minimalista -->
-<aside class="bg-gray-900 text-gray-300 w-64 p-6 space-y-4 transform -translate-x-full fixed inset-y-0 left-0 lg:relative lg:translate-x-0 transition-transform duration-300 ease-in-out z-40" id="sidebar">
+<!-- Sidebar siempre visible -->
+<aside class="bg-gray-900 text-gray-300 w-64 p-6 space-y-4 fixed inset-y-0 left-0 z-40">
   <!-- Encabezado -->
   <div class="flex items-center justify-between mb-8">
     <span class="font-bold text-xl flex items-center text-white">
       <i class="fas fa-gem text-green-500 mr-2"></i> Panel
     </span>
-    <i class="fas fa-times text-xl cursor-pointer lg:hidden" id="sidebar-close"></i>
+    <!-- Botón de cerrar eliminado porque siempre estará visible -->
   </div>
 
   <!-- Navegación -->
