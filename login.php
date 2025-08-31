@@ -1,47 +1,52 @@
-<?php
-session_start();
-if(isset($_SESSION['user_id'])){
-    if($_SESSION['role'] === 'admin'){
-        header("Location: admin/dashboard.php");
-        exit;
-    } else {
-        header("Location: user/dashboard.php");
-        exit;
-    }
-}
-?>
-
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - Deportivo Patagones</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <title>Login - Club Deportivo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-x..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="bg-white p-8 rounded shadow-md w-96" data-aos="zoom-in">
-        <h2 class="text-2xl font-bold text-green-700 mb-6 text-center">Login Administrador</h2>
-        <form action="process_login.php" method="post" class="space-y-4">
-            <div>
-                <label class="block text-gray-700">Usuario:</label>
-                <input type="text" name="username" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500" required>
-            </div>
-            <div>
-                <label class="block text-gray-700">Contraseña:</label>
-                <input type="password" name="password" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500" required>
-            </div>
-            <button type="submit" class="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 transition">Ingresar</button>
-        </form>
+<body class="bg-gradient-to-br from-blue-100 to-blue-300 flex items-center justify-center min-h-screen">
 
-    </div>
+  <div class="w-full max-w-sm p-8 bg-white rounded-3xl shadow-xl border border-blue-200">
+    <h2 class="text-3xl font-bold text-center mb-6 text-blue-700">Iniciar Sesión</h2>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init({ duration: 800, once: true });
-</script>
+    <?php if (isset($_SESSION['error'])): ?>
+      <div class="mb-4 p-3 bg-red-100 text-red-700 rounded flex items-center gap-2">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span><?= $_SESSION['error']; unset($_SESSION['error']); ?></span>
+      </div>
+    <?php endif; ?>
+
+    <form action="login_process.php" method="POST" class="space-y-6">
+      <div>
+        <label class="block mb-1 font-semibold text-gray-700">Usuario</label>
+        <div class="flex items-center border rounded-lg overflow-hidden focus-within:ring focus-within:ring-blue-200">
+          <span class="px-3 text-gray-400"><i class="fas fa-user"></i></span>
+          <input type="text" name="username" required class="w-full px-3 py-2 focus:outline-none">
+        </div>
+      </div>
+
+      <div>
+        <label class="block mb-1 font-semibold text-gray-700">Contraseña</label>
+        <div class="relative flex items-center border rounded-lg overflow-hidden focus-within:ring focus-within:ring-blue-200">
+          <span class="px-3 text-gray-400"><i class="fas fa-lock"></i></span>
+          <input id="password" type="password" name="password" required class="w-full px-3 py-2 focus:outline-none pr-10">
+          <button type="button" id="togglePassword" class="absolute right-3 text-gray-400 hover:text-gray-700">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition font-semibold">
+        Entrar
+      </button>
+    </form>
+  </div>
+
+<?php include 'includes/footer.php'; ?>
+
 </body>
 </html>
