@@ -26,10 +26,6 @@
       <i class="fas fa-calendar-check"></i>
       <span>Alquileres</span>
     </a>
-    <a href="calendar.php" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition">
-      <i class="fas fa-calendar"></i>
-      <span>Calendario</span>
-    </a>
     <a href="stock.php" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-800 transition">
       <i class="fas fa-box"></i>
       <span>Stock</span>
@@ -38,7 +34,7 @@
 
   <!-- Cerrar sesión -->
   <div class="absolute bottom-6 w-full pr-12">
-    <a href="#" class="flex items-center space-x-3 p-3 rounded-lg text-red-400 hover:bg-gray-800 transition">
+    <a href="../logout.php" class="flex items-center space-x-3 p-3 rounded-lg text-red-400 hover:bg-gray-800 transition">
       <i class="fas fa-sign-out-alt"></i>
       <span>Cerrar sesión</span>
     </a>
