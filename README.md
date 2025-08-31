@@ -40,7 +40,7 @@ Con esta estructura, cualquier desarrollador puede agregar nuevas páginas, mód
 ---
 ---
 
-# 001 Club Deportivo Patagones - Gestión de Sesiones y Usuarios INSFRAESTRUCTURA BASICA DEL PROYECTO
+# 002 Club Deportivo Patagones - Gestión de Sesiones y Usuarios
 
 ## 1. Propósito
 Este README explica cómo funciona la **estructura de sesión de usuarios** y cómo **crear un usuario administrador** dentro del proyecto.
@@ -127,7 +127,7 @@ Este README explica cómo funciona la **estructura de sesión de usuarios** y c�
 
   1. Abrir en el navegador:
      ```
-     http://localhost/club_deportivo/create_admin.php
+     http://localhost/deportivo_patagones/create_admin.php
      ```
   2. Se mostrará un mensaje si se creó correctamente.  
 
