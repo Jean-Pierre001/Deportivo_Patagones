@@ -3,7 +3,7 @@
 // Conexión a la Base de Datos con PDO
 
 $host = "localhost";       // Servidor
-$dbname = "club_deportivo"; // Nombre de la base de datos
+$dbname = "deportivo_patagones"; // Nombre de la base de datos
 $username = "root";        // Usuario
 $password = "";            // Contraseña
 
