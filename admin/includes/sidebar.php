@@ -10,7 +10,7 @@
   <nav class="flex-1 p-4 overflow-y-auto">
     <ul class="space-y-2">
       <li>
-        <a href="#" class="flex items-center p-2 rounded hover:bg-blue-700">
+        <a href="index.php" class="flex items-center p-2 rounded hover:bg-blue-700">
           <i class="fa fa-home mr-3"></i> Inicio
         </a>
       </li>
@@ -30,7 +30,7 @@
         </a>
       </li>
       <li>
-        <a href="#" class="flex items-center p-2 rounded hover:bg-blue-700">
+        <a href="clients_admin.php" class="flex items-center p-2 rounded hover:bg-blue-700">
           <i class="fa fa-address-card mr-3"></i> Gestor de clientes
         </a>
       </li>
