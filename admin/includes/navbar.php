@@ -7,7 +7,7 @@
 
   <div class="flex items-center space-x-4">
     <div class="flex items-center space-x-2">
-      <span class="font-medium">Panel de asistencia</span>
+      <span class="font-medium">Deportivo Patagones</span>
     </div>
   </div>
 </header>
