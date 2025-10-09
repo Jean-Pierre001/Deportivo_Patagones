@@ -1,334 +1,264 @@
-
-<?php include 'includes/header.php'; ?>
+<!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Social y Deportivo Patagones - Inicio y Reservas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
-    <link rel="stylesheet" href="assets/css/index.css">
-</head>
-<body class="bg-gray-50" x-data="{ darkMode: false, mobileMenuOpen: false }" :class="{ 'dark': darkMode }">
-    <!-- Header -->
-    <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center">
-                <i data-feather="dribbble" class="text-green-500 w-8 h-8"></i>
-                <span class="ml-2 text-2xl font-bold text-gray-800 dark:text-white">Club Social y Deportivo Patagones</span>
-            </a>
-            
-            <div class="hidden md:flex items-center space-x-6">
-                <nav class="flex space-x-8">
-
-                    <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
-                        Iniciar sesión
-                    </a>
-                </div>
-            </div>
-            
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-700">
-                <i data-feather="menu" class="w-6 h-6 text-gray-600 dark:text-gray-300"></i>
-            </button>
-        </div>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6', // Azul
+                        secondary: '#10b981', // Verde
+                        mercadopago: '#ffc107', // Amarillo/Naranja
+                        light_bg: '#f8fafc' // Blanco roto
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
         
-        <!-- Mobile menu -->
-        <div x-show="mobileMenuOpen" class="md:hidden bg-white dark:bg-gray-800 shadow-lg">
-            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+        /* --- ESTILOS DE IMAGENES --- */
+        
+        .navbar-shield {
+            height: 40px; 
+            width: auto;
+            border-radius: 50%;
+            background-color: white; 
+            padding: 2px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            object-fit: contain;
+        }
 
-                    <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-colors">
-                        Iniciar sesión
-                    </a>
-                </div>
+        .hero-image-background {
+            /* Asegúrate de que bannerweb.jpg exista en tu carpeta */
+            background-image: url(bannerweb.jpg); 
+            background-size: cover; /* Cambiado de 100% a cover para mejor adaptación */
+            background-position: center; /* Centrado */
+            position: relative;
+        }
+
+        .hero-image-background::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3); 
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white; 
+        }
+
+        .text-shadow-lg {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 transition-colors duration-300">
+    <nav class="bg-transparent text-white sticky top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <img src="escudo.png" alt="Escudo C. S. y D. P." class="navbar-shield">
+                <span class="text-xl font-bold">Deportivo Patagones</span>
             </div>
+            <div class="flex items-center space-x-6">
+                <a href="index.html" class="hover:text-secondary transition">Inicio</a>
+                <a href="#instalaciones" class="hover:text-secondary transition">Instalaciones</a>
+                <a href="turnos.html" class="hover:text-secondary transition">Reservar</a>
+                <button id="login-btn" class="bg-secondary hover:bg-green-500 px-4 py-2 rounded-lg font-medium transition">
+                    Iniciar sesión
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-image-background py-20 -mt-[60px] h-[70vh] flex items-center justify-center">
+        <div class="container mx-auto px-4 text-center hero-content pt-20">
+             <img src="escudo.png" alt="Escudo C. S. y D. P." class="mx-auto mb-6 w-28 h-28 object-contain rounded-full bg-white p-2 shadow-lg relative z-30">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 text-shadow-lg">Club Social y Deportivo Patagones</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto font-semibold text-shadow-lg">Tu espacio multideportivo en Carmen de Patagones</p>
+            <a href="#instalaciones" class="bg-secondary hover:bg-green-500 text-white px-8 py-3 rounded-lg font-bold text-lg transition inline-block shadow-xl">
+                Ver Instalaciones
+            </a>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-green-500 to-green-600 text-white py-20">
+    <section id="instalaciones" class="py-16 bg-gray-100">
         <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto text-center">
-                <h1 class="text-4xl md:text-5xl font-bold mb-6">Encuentra y reserva tu espacio</h1>
-                <!--<p class="text-xl mb-8">Más de 500 canchas disponibles con reserva instantánea y pago seguro</p>-->
-                <br>
-                
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 max-w-3xl mx-auto">
-                    <div class="flex flex-col md:flex-row gap-4">
-                        <div class="flex-1">
-                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-1">Ubicación</label>
-                            <div class="relative">
-                                <input type="text" placeholder="Ciudad, barrio o dirección" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                <i data-feather="map-pin" class="absolute right-3 top-3.5 text-gray-400"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="flex-1">
-                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-1">Fecha</label>
-                            <div class="relative">
-                                <input type="date" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                <i data-feather="calendar" class="absolute right-3 top-3.5 text-gray-400"></i>
-                            </div>
-                        </div>
-                        
-                        <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center">
-                            <i data-feather="search" class="mr-2"></i> Buscar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Canchas Section -->
-    <section id="canchas" class="py-16 bg-gray-50 dark:bg-gray-900">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-3xl font-bold text-gray-800 dark:text-white">Canchas disponibles</h2>
-                
-                <div class="flex items-center space-x-4">
-                    <div class="relative">
-                        <select class="appearance-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 pr-8 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-gray-700 dark:text-white">
-                            <option>Filtrar por</option>
-                            <option>Precio: Menor a mayor</option>
-                            <option>Precio: Mayor a menor</option>
-                            <option>Mejor valoradas</option>
-                            <option>Más cercanas</option>
-                        </select>
-                        <i data-feather="chevron-down" class="absolute right-3 top-2.5 text-gray-400"></i>
-                    </div>
-                    
-                    <button class="p-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600">
-                        <i data-feather="map" class="w-5 h-5 text-gray-600 dark:text-gray-300"></i>
-                    </button>
-                </div>
+            <h2 class="text-3xl font-bold text-center mb-10 text-gray-800">Nuestros Ambientes y Servicios</h2>
+            
+            <div class="flex justify-center space-x-4 mb-10">
+                <button class="filter-btn bg-primary text-white px-5 py-2 rounded-full font-semibold transition" data-filter="all">Todos</button>
+                <button class="filter-btn bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-full font-semibold transition" data-filter="futbol">Canchas</button>
+                <button class="filter-btn bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-full font-semibold transition" data-filter="salon">Salones</button>
+                <button class="filter-btn bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-full font-semibold transition" data-filter="albergue">Albergues</button>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Cancha Card 1 -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://static.photos/sport/640x360/1" alt="Cancha de fútbol" class="w-full h-48 object-cover">
-                        <div class="absolute top-3 right-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium">
-                            <i data-feather="star" class="w-3 h-3 inline mr-1"></i> 4.8
-                        </div>
-                    </div>
-                    
-                    <div class="p-6">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-1">Cancha Los Pinos</h3>
-                                <div class="flex items-center text-gray-600 dark:text-gray-300 mb-3">
-                                    <i data-feather="map-pin" class="w-4 h-4 mr-1"></i>
-                                    <span>San Isidro, Lima</span>
-                                </div>
-                            </div>
-                            <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded-full text-xs font-medium">Césped sintético</span>
-                        </div>
-                        
-                        <div class="flex items-center justify-between mt-4">
-                            <div>
-                                <span class="text-gray-500 dark:text-gray-400 text-sm">Desde</span>
-                                <p class="text-2xl font-bold text-gray-800 dark:text-white">S/ 80 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/hora</span></p>
-                            </div>
-                            
-                            <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-colors text-sm">
-                                Reservar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Cancha Card 2 -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://static.photos/sport/640x360/2" alt="Cancha de fútbol" class="w-full h-48 object-cover">
-                        <div class="absolute top-3 right-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium">
-                            <i data-feather="star" class="w-3 h-3 inline mr-1"></i> 4.9
-                        </div>
-                    </div>
-                    
-                    <div class="p-6">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-1">Estadio Mini</h3>
-                                <div class="flex items-center text-gray-600 dark:text-gray-300 mb-3">
-                                    <i data-feather="map-pin" class="w-4 h-4 mr-1"></i>
-                                    <span>Miraflores, Lima</span>
-                                </div>
-                            </div>
-                            <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded-full text-xs font-medium">Césped natural</span>
-                        </div>
-                        
-                        <div class="flex items-center justify-between mt-4">
-                            <div>
-                                <span class="text-gray-500 dark:text-gray-400 text-sm">Desde</span>
-                                <p class="text-2xl font-bold text-gray-800 dark:text-white">S/ 120 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/hora</span></p>
-                            </div>
-                            
-                            <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-colors text-sm">
-                                Reservar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Cancha Card 3 -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden card-hover">
-                    <div class="relative">
-                        <img src="https://static.photos/sport/640x360/3" alt="Cancha de fútbol" class="w-full h-48 object-cover">
-                        <div class="absolute top-3 right-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium">
-                            <i data-feather="star" class="w-3 h-3 inline mr-1"></i> 4.7
-                        </div>
-                    </div>
-                    
-                    <div class="p-6">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-1">Fútbol Park</h3>
-                                <div class="flex items-center text-gray-600 dark:text-gray-300 mb-3">
-                                    <i data-feather="map-pin" class="w-4 h-4 mr-1"></i>
-                                    <span>Surco, Lima</span>
-                                </div>
-                            </div>
-                            <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded-full text-xs font-medium">Césped sintético</span>
-                        </div>
-                        
-                        <div class="flex items-center justify-between mt-4">
-                            <div>
-                                <span class="text-gray-500 dark:text-gray-400 text-sm">Desde</span>
-                                <p class="text-2xl font-bold text-gray-800 dark:text-white">S/ 65 <span class="text-sm font-normal text-gray-500 dark:text-gray-400">/hora</span></p>
-                            </div>
-                            
-                            <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition-colors text-sm">
-                                Reservar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="#" class="inline-flex items-center text-green-500 hover:text-green-600 font-medium">
-                    Ver más canchas
-                    <i data-feather="chevron-right" class="w-5 h-5 ml-1"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-    <!-- Contacto Section -->
-    <section id="contacto" class="py-16 bg-white dark:bg-gray-800">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto">
-                <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-12">Contáctanos</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4">Información de contacto</h3>
-                        
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <div class="bg-green-100 dark:bg-green-900 p-2 rounded-lg mr-4">
-                                    <i data-feather="mail" class="w-5 h-5 text-green-500"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-gray-800 dark:text-white">Correo electrónico</h4>
-                                    <p class="text-gray-600 dark:text-gray-300">hola@canchasfutbolgo.com</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start">
-                                <div class="bg-green-100 dark:bg-green-900 p-2 rounded-lg mr-4">
-                                    <i data-feather="phone" class="w-5 h-5 text-green-500"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-gray-800 dark:text-white">Teléfono</h4>
-                                    <p class="text-gray-600 dark:text-gray-300">+51 987 654 321</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-start">
-                                <div class="bg-green-100 dark:bg-green-900 p-2 rounded-lg mr-4">
-                                    <i data-feather="map-pin" class="w-5 h-5 text-green-500"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-gray-800 dark:text-white">Oficina principal</h4>
-                                    <p class="text-gray-600 dark:text-gray-300">Av. Javier Prado 123, Lima, Perú</p>
-                                </div>
-                            </div>
-                            <iframe class="rounded" src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d6040.323631542815!2d-62.9827574!3d-40.8024378!3m2!1i1024!2i768!4f13.1!2m1!1sclub%20deportivo%20patagones!5e0!3m2!1ses-419!2sar!4v1759434180685!5m2!1ses-419!2sar" width="450" height="250" style="border:solid 1px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" ></iframe>
-                        </div>
-                    </div>
-                    <div>
-                        <form class="mx-4 space-y-4">
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre completo</label>
-                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            </div>
-                            
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Correo electrónico</label>
-                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                            </div>
-                            
-                            <div>
-                                <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mensaje</label>
-                                <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
-                            </div>
-                            
-                            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-medium transition-colors w-full">
-                                Enviar mensaje
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="card bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 card-hover" data-category="futbol">
+                    <img src="cancha_placeholder.jpg" alt="Cancha de Fútbol" class="rounded-t-xl h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">Canchas de Fútbol/Tenis</h4>
+                        <span class="inline-block bg-primary text-white text-xs px-3 py-1 rounded-full font-semibold mb-3">Deportivo</span>
+                        <p class="text-gray-600 mb-4">Reserva tu horario en nuestras canchas sintéticas. Incluye acceso a vestuarios. ¡Opciones de quincho y cocina adicionales!</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xl font-bold text-secondary">$5.000 / Hora</span>
+                        </div>
+                        <button 
+                            class="select-facility-btn w-full bg-secondary hover:bg-green-600 text-white py-2 rounded-lg font-bold transition"
+                            data-id="cancha-principal"
+                            data-name="Cancha Principal (Fútbol)"
+                            data-price="5000"
+                            data-category="futbol"
+                            data-location="Sector Deportivo"
+                        >Reservar</button>
+                    </div>
+                </div>
+                
+                <div class="card bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 card-hover" data-category="salon">
+                    <img src="salon_placeholder.jpg" alt="Salón de Eventos" class="rounded-t-xl h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">Salones para Eventos</h4>
+                        <span class="inline-block bg-pink-500 text-white text-xs px-3 py-1 rounded-full font-semibold mb-3">Eventos</span>
+                        <p class="text-gray-600 mb-4">Ideal para fiestas, cumpleaños y reuniones. Se alquila por bloque o por hora. Opción a servicio de catering.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xl font-bold text-secondary">$5.000 / Hora</span>
+                        </div>
+                        <button 
+                            class="select-facility-btn w-full bg-secondary hover:bg-green-600 text-white py-2 rounded-lg font-bold transition"
+                            data-id="salon-a"
+                            data-name="Salón Principal A"
+                            data-price="5000"
+                            data-category="salon"
+                            data-location="Sector Central"
+                        >Reservar</button>
+                    </div>
+                </div>
 
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Enlaces rápidos</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Inicio</a></li>
-                        <li><a href="#canchas" class="text-gray-400 hover:text-white">Canchas</a></li>
-                        <!--<li><a href="#como-funciona" class="text-gray-400 hover:text-white">Cómo funciona</a></li>
-                        <li><a href="#testimonios" class="text-gray-400 hover:text-white">Testimonios</a></li>-->
-                        <li><a href="#contacto" class="text-gray-400 hover:text-white">Contacto</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Legal</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white">Términos y condiciones</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Política de privacidad</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white">Política de cookies</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-lg font-bold mb-4">Suscríbete</h3>
-                    <p class="text-gray-400 mb-4">Recibe las últimas novedades y promociones.</p>
-                    
-                    <form class="flex">
-                        <input type="email" placeholder="Tu correo" class="px-4 py-2 rounded-l-lg focus:outline-none text-gray-800 w-full">
-                        <button type="submit" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded-r-lg">
-                            <i data-feather="send" class="w-5 h-5"></i>
-                        </button>
-                    </form>
+                <div class="card bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 card-hover" data-category="albergue">
+                    <img src="albergue_placeholder.jpg" alt="Albergue Deportivo" class="rounded-t-xl h-48 w-full object-cover">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">Albergues Deportivos</h4>
+                        <span class="inline-block bg-yellow-600 text-white text-xs px-3 py-1 rounded-full font-semibold mb-3">Estadía</span>
+                        <p class="text-gray-600 mb-4">Hospedaje simple para delegaciones. Se alquila por hora/día. Incluye acceso a quincho y uso de cocina adicional.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xl font-bold text-secondary">$2.000 / Hora</span>
+                        </div>
+                        <button 
+                            class="select-facility-btn w-full bg-secondary hover:bg-green-600 text-white py-2 rounded-lg font-bold transition"
+                            data-id="albergue-1"
+                            data-name="Albergue Básico"
+                            data-price="2000"
+                            data-category="albergue"
+                            data-location="Sector Cabañas"
+                        >Reservar</button>
+                    </div>
                 </div>
             </div>
             
-            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-                <p>© 2025 Club Social y Deportivo Patagones. Todos los derechos reservados.</p>
-            </div>
         </div>
-    </footer>
+    </section>
+
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg p-8 max-w-sm w-full relative">
+            <button id="close-modal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600"><i data-feather="x"></i></button>
+            <h2 class="text-2xl font-bold mb-4 text-gray-900">Iniciar Sesión</h2>
+            </div>
+    </div>
+    
+<?php include 'includes/footer.php'; ?>
+
+    <script>
+        document.querySelectorAll('.select-facility-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const facilityData = {
+                    id: button.getAttribute('data-id'),
+                    name: button.getAttribute('data-name'),
+                    price: button.getAttribute('data-price'),
+                    category: button.getAttribute('data-category'),
+                    location: button.getAttribute('data-location')
+                };
+                
+                localStorage.setItem('selectedFacility', JSON.stringify(facilityData));
+                window.location.href = 'turnos.html';
+            });
+        });
+
+        const loginBtn = document.getElementById('login-btn');
+        const loginModal = document.getElementById('login-modal');
+        const closeModal = document.getElementById('close-modal');
+        if(loginBtn && loginModal && closeModal) {
+            loginBtn.addEventListener('click', () => loginModal.classList.remove('hidden'));
+            closeModal.addEventListener('click', () => loginModal.classList.add('hidden'));
+        }
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-primary', 'text-white');
+                    b.classList.add('bg-gray-200');
+                });
+                btn.classList.add('active', 'bg-primary', 'text-white');
+                btn.classList.remove('bg-gray-200');
+                
+                const filter = btn.getAttribute('data-filter');
+                cards.forEach(card => {
+                    card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter) ? 'block' : 'none';
+                });
+            });
+        });
+
+        feather.replace();
+        
+// --- LÓGICA DE NAVBAR CON OPACIDAD GRADUAL (FADING) ---
+document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.querySelector('nav');
+    
+    // Distancia de scroll en la que el navbar alcanza opacidad total (Ajusta a 250 en index.html, 150 en otros)
+    const maxScroll = 150; // O 150 en checkout.html y turnos.html
+    
+    const scrollHandler = () => {
+        const scrollY = window.scrollY;
+        
+        // Calcula la opacidad entre 0 y 1.
+        let opacity = Math.min(1, scrollY / maxScroll);
+        
+        // CAMBIO CLAVE: Usamos rgb(0, 0, 0) para NEGRO en lugar de rgb(59, 130, 246) para azul.
+        navbar.style.backgroundColor = `rgba(0, 0, 0, ${opacity})`;
+        
+        // Muestra la sombra solo cuando la opacidad es casi completa (ej: 90% o más)
+        if (opacity > 0.9) {
+            navbar.classList.add('shadow-lg');
+            // Opcional: Si el texto del navbar es blanco y quieres que cambie al final:
+            // navbar.classList.remove('text-white'); 
+            // navbar.classList.add('text-gray-900');
+        } else {
+            navbar.classList.remove('shadow-lg');
+            // Aseguramos que el texto sea blanco cuando está transparente para que se vea sobre el banner
+            navbar.classList.add('text-white'); 
+        }
+    };
+    
+    // Ejecutar al inicio y escuchar el evento de scroll
+    scrollHandler(); 
+    window.addEventListener('scroll', scrollHandler);
+});
+    </script>
 </body>
 </html>
