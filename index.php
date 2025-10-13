@@ -1,93 +1,11 @@
-<!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Social y Deportivo Patagones - Inicio y Reservas</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#3b82f6', // Azul
-                        secondary: '#10b981', // Verde
-                        mercadopago: '#ffc107', // Amarillo/Naranja
-                        light_bg: '#f8fafc' // Blanco roto
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        /* --- ESTILOS DE IMAGENES --- */
-        
-        .navbar-shield {
-            height: 40px; 
-            width: auto;
-            border-radius: 50%;
-            background-color: white; 
-            padding: 2px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            object-fit: contain;
-        }
-
-        .hero-image-background {
-            /* Asegúrate de que bannerweb.jpg exista en tu carpeta */
-            background-image: url(bannerweb.jpg); 
-            background-size: cover; /* Cambiado de 100% a cover para mejor adaptación */
-            background-position: center; /* Centrado */
-            position: relative;
-        }
-
-        .hero-image-background::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.3); 
-            z-index: 1;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            color: white; 
-        }
-
-        .text-shadow-lg {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-    </style>
+<?php include 'includes/header.php'; ?>
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body class="bg-gray-50 transition-colors duration-300">
-    <nav class="bg-transparent text-white sticky top-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <img src="escudo.png" alt="Escudo C. S. y D. P." class="navbar-shield">
-                <span class="text-xl font-bold">Deportivo Patagones</span>
-            </div>
-            <div class="flex items-center space-x-6">
-                <a href="index.html" class="hover:text-secondary transition">Inicio</a>
-                <a href="#instalaciones" class="hover:text-secondary transition">Instalaciones</a>
-                <a href="turnos.html" class="hover:text-secondary transition">Reservar</a>
-                <button id="login-btn" class="bg-secondary hover:bg-green-500 px-4 py-2 rounded-lg font-medium transition">
-                    Iniciar sesión
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <header class="hero-image-background py-20 -mt-[60px] h-[70vh] flex items-center justify-center">
+    <?php include 'includes/navbar.php'; ?>
+    <header class="hero-image-background py-20 -mt-[65px] h-[70vh] flex items-center justify-center">
         <div class="container mx-auto px-4 text-center hero-content pt-20">
-             <img src="escudo.png" alt="Escudo C. S. y D. P." class="mx-auto mb-6 w-28 h-28 object-contain rounded-full bg-white p-2 shadow-lg relative z-30">
+             <img src="assets/img/escudo.png" alt="Escudo C. S. y D. P." class="mx-auto mb-6 w-28 h-28 object-contain rounded-full bg-white p-2 shadow-lg relative z-30">
             <h1 class="text-4xl md:text-6xl font-bold mb-6 text-shadow-lg">Club Social y Deportivo Patagones</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto font-semibold text-shadow-lg">Tu espacio multideportivo en Carmen de Patagones</p>
             <a href="#instalaciones" class="bg-secondary hover:bg-green-500 text-white px-8 py-3 rounded-lg font-bold text-lg transition inline-block shadow-xl">
@@ -130,7 +48,7 @@
                 </div>
                 
                 <div class="card bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 card-hover" data-category="salon">
-                    <img src="salon_placeholder.jpg" alt="Salón de Eventos" class="rounded-t-xl h-48 w-full object-cover">
+                    <img src="assets/img/salon_placeholder.jpg" alt="Salón de Eventos" class="rounded-t-xl h-48 w-full object-cover">
                     <div class="p-6">
                         <h4 class="text-2xl font-bold text-gray-800 mb-2">Salones para Eventos</h4>
                         <span class="inline-block bg-pink-500 text-white text-xs px-3 py-1 rounded-full font-semibold mb-3">Eventos</span>
@@ -194,7 +112,7 @@
                 };
                 
                 localStorage.setItem('selectedFacility', JSON.stringify(facilityData));
-                window.location.href = 'turnos.html';
+                window.location.href = 'turnos.php';
             });
         });
 

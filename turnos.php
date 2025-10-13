@@ -1,106 +1,10 @@
-<!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Patagones - Seleccionar Turnos</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
+    <?php include 'includes/header.php'; ?>
+    <link rel="stylesheet" href="assets/css/turnos.css">
     <script src="turnos-logic.js" defer></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#3b82f6', // Azul
-                        secondary: '#10b981', // Verde
-                        mercadopago: '#ffc107', // Amarillo/Naranja
-                        light_bg: '#f8fafc' 
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .calendar-container { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
-        .calendar-container.open { max-height: 1000px; }
-        
-        /* Estilos de Slots */
-        .time-slot { cursor: pointer; transition: background-color 0.2s, color 0.2s, box-shadow 0.2s; position: relative; z-index: 10; }
-        .time-slot:not(.selected):not(.unavailable):hover { background-color: #3b82f630; }
-        .time-slot.selected { background-color: #3b82f6; color: white; font-weight: bold; }
-        .time-slot.range-hover { box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.7); }
-        .time-slot.unavailable { background-color: #ef4444; color: white; cursor: not-allowed; opacity: 0.8; text-decoration: line-through; font-style: italic; }
-        
-     .navbar-shield {
-            height: 40px; 
-            width: auto;
-            border-radius: 50%;
-            background-color: white; 
-            padding: 2px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            object-fit: contain;
-        }
-
-        /* ESTILO PARA EL BANNER DE CHECKOUT (MÁS CORTO) */
-        .hero-image-background-checkout {
-            background-image: url(bannerweb.jpg); /* Reemplaza con tu URL */
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .hero-image-background-checkout::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* Tonalidad oscura para contraste con el texto blanco */
-            background-color: rgba(0, 0, 0, 0.4); 
-            z-index: 1;
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ESTILOS PARA EL BANNER DE TURNOS */
-        .hero-image-background { background-image: url(bannerweb.jpg); background-size: cover; background-position: center; position: relative; }
-        .hero-image-background::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.3); z-index: 1; }
-        .hero-content { position: relative; z-index: 2; color: white; }
-
-
-        
-        /* Estilo para el día deshabilitado en el calendario */
-        #calendar-days .day.cursor-not-allowed {
-            color: #9ca3af; 
-            background-color: #f3f4f6;
-            cursor: not-allowed;
-        }
-    </style>
 </head>
 <body class="bg-gray-50 transition-colors duration-300">
-    <nav class="bg-transparent text-white sticky top-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <img src="escudo.png" alt="Escudo C. S. y D. P." class="navbar-shield">
-                <span class="text-xl font-bold">Deportivo Patagones</span>
-            </div>
-            <div class="flex items-center space-x-6">
-                <a href="index.html" class="hover:text-secondary transition">Inicio</a>
-                <a href="index.html#instalaciones" class="hover:text-secondary transition">Instalaciones</a>
-                <a href="turnos.html" class="hover:text-secondary transition">Reservar</a>
-                <button id="login-btn" class="bg-secondary hover:bg-green-500 px-4 py-2 rounded-lg font-medium transition">
-                    Iniciar sesión
-                </button>
-            </div>
-        </div>
-    </nav>
-    
-    <header class="hero-image-background-checkout text-white py-12 -mt-[60px] pt-[100px]">
+    <?php include 'includes/navbar.php'; ?>
+    <header class="hero-image-background-checkout text-white py-12 -mt-[65px] pt-[100px]">
         <div class="container mx-auto px-4 hero-content">
             <h1 class="text-3xl font-bold">Reserva de Turnos</h1>
             <p class="mt-2 text-lg">Estás reservando: <strong id="facility-name-header">Cargando...</strong></p>
@@ -265,6 +169,9 @@
             window.addEventListener('scroll', scrollHandler);
             // --- FIN LÓGICA NAVBAR ---
 
+    </script>
+    <script>
+        feather.replace();
     </script>
 </body>
 </html>

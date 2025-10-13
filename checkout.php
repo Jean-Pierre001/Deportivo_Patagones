@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Patagones - Checkout</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
+    <?php include 'includes/header.php'; ?>
     <script>
         tailwind.config = {
             theme: {
@@ -20,54 +13,19 @@
             }
         }
     </script>
-    <style>
-        .navbar-shield {
-            height: 40px; 
-            width: auto;
-            border-radius: 50%;
-            background-color: white; 
-            padding: 2px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-            object-fit: contain;
-        }
-
-        /* ESTILO PARA EL BANNER DE CHECKOUT (MÁS CORTO) */
-        .hero-image-background-checkout {
-            background-image: url(bannerweb.jpg); /* Reemplaza con tu URL */
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .hero-image-background-checkout::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* Tonalidad oscura para contraste con el texto blanco */
-            background-color: rgba(0, 0, 0, 0.4); 
-            z-index: 1;
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/checkout.css">
 </head>
 <body class="bg-gray-50 transition-colors duration-300">
     <nav class="bg-transparent text-white sticky top-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
-                <img src="escudo.png" alt="Escudo C. S. y D. P." class="navbar-shield">
+                <img src="assets/img/escudo.png" alt="Escudo C. S. y D. P." class="navbar-shield">
                 <span class="text-xl font-bold">Deportivo Patagones</span>
             </div>
             <div class="flex items-center space-x-6">
-                <a href="index.html" class="hover:text-secondary transition">Inicio</a>
-                <a href="index.html#instalaciones" class="hover:text-secondary transition">Instalaciones</a>
-                <a href="turnos.html" class="hover:text-secondary transition">Reservar</a>
+                <a href="index.php" class="hover:text-secondary transition">Inicio</a>
+                <a href="index.php" class="hover:text-secondary transition">Instalaciones</a>
+                <a href="turnos.php" class="hover:text-secondary transition">Reservar</a>
                 <button id="login-btn" class="bg-secondary hover:bg-green-500 px-4 py-2 rounded-lg font-medium transition">
                     Iniciar sesión
                 </button>
@@ -75,7 +33,7 @@
         </div>
     </nav>
     
-    <header class="hero-image-background-checkout text-white py-12 -mt-[60px] pt-[100px]">
+    <header class="hero-image-background-checkout text-white py-12 -mt-[65px] pt-[100px]">
         <div class="container mx-auto px-4 header-content">
             <h1 class="text-3xl font-bold">Checkout y Pago de Seña</h1>
             <p class="mt-2 text-lg">Confirma los detalles de tu reserva antes de pagar.</p>
@@ -126,7 +84,7 @@
                         </button>
                     </div>
 
-                    <a href="turnos.html" class="block mt-4 text-center text-primary hover:underline">
+                    <a href="turnos.php" class="block mt-4 text-center text-primary hover:underline">
                         <i data-feather="arrow-left" class="inline w-4 h-4 mr-1"></i> Modificar Reserva
                     </a>
                 </div>
@@ -139,7 +97,7 @@
             <i data-feather="check-circle" class="w-16 h-16 mx-auto text-secondary mb-4"></i>
             <h2 class="text-2xl font-bold mb-4 text-gray-900">¡Pago Exitoso! 🎉</h2>
             <p class="text-gray-700 mb-6">Tu reserva ha sido confirmada. Recibirás un email con todos los detalles.</p>
-            <button onclick="window.location.href='index.html'" class="w-full bg-primary hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition">
+            <button onclick="window.location.href='index.php'" class="w-full bg-primary hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition">
                 Volver al Inicio
             </button>
         </div>
@@ -189,7 +147,7 @@
             
             // CORRECCIÓN CLAVE: Manejar el caso donde no hay datos en localStorage
             if (!reservationData) {
-                summaryDetails.innerHTML = '<p class="text-red-500 font-bold">Error al cargar la reserva.</p><p>Por favor, regresa a la página de <a href="turnos.html" class="underline text-primary">Turnos</a>, selecciona tu reserva y haz clic en "Ir a Checkout".</p>';
+                summaryDetails.innerHTML = '<p class="text-red-500 font-bold">Error al cargar la reserva.</p><p>Por favor, regresa a la página de <a href="turnos.php" class="underline text-primary">Turnos</a>, selecciona tu reserva y haz clic en "Ir a Checkout".</p>';
                 document.getElementById('checkout-total-price').textContent = formatter.format(0);
                 document.getElementById('checkout-deposit-price').textContent = formatter.format(0);
                 document.getElementById('process-payment-btn').disabled = true;

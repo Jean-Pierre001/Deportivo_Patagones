@@ -17,6 +17,6 @@ try {
 
 } catch (PDOException $e) {
     // En caso de error muestra mensaje
-    die("❌ Error de conexión: " . $e->getMessage());
+    die("Error de conexión: " . $e->getMessage());
 }
 ?>

@@ -424,7 +424,7 @@ function goToCheckout() {
     };
     
     localStorage.setItem('finalReservation', JSON.stringify(reservationData));
-    window.location.href = 'checkout.html';
+    window.location.href = 'checkout.php';
 }
 
 // 9. FUNCIÓN PARA MOSTRAR MODAL DE LISTA DE ESPERA
