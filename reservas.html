@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deportivo Patagones - Turnos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .banner {
+            background-image: url('http://static.photos/sport/1200x630/1');
+            background-size: cover;
+            background-position: center;
+            transition: all 0.3s ease;
+        }
+        .sticky-nav {
+            transform: translateY(-100%);
+            transition: all 0.3s ease;
+        }
+        .sticky-nav.visible {
+            transform: translateY(0);
+        }
+        .reservation-card {
+            transition: all 0.2s ease;
+        }
+        .reservation-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        /* Custom border for pending payment */
+        .pending-border {
+            border-left: 4px solid #f87171; /* red-400 */
+        }
+        @media (max-width: 768px) {
+            .reservation-table {
+                display: none;
+            }
+            .reservation-cards {
+                display: block;
+            }
+        }
+        @media (min-width: 769px) {
+            .reservation-table {
+                display: table;
+            }
+            .reservation-cards {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav id="mainNav" class="sticky-nav fixed w-full top-0 z-50 bg-black text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <i data-feather="calendar" class="mr-2"></i>
+                <h1 class="text-xl font-bold">Deportivo Patagones - Turnos</h1>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="px-3 py-1 rounded hover:bg-gray-700 transition flex items-center">
+                    <i data-feather="home" class="w-4 h-4 mr-1"></i> Inicio
+                </a>
+                <a href="#" class="px-3 py-1 rounded bg-gray-900 hover:bg-gray-700 transition flex items-center">
+                    <i data-feather="clock" class="w-4 h-4 mr-1"></i> Reservas
+                </a>
+                <a href="#" class="px-3 py-1 rounded hover:bg-gray-700 transition flex items-center">
+                    <i data-feather="user" class="w-4 h-4 mr-1"></i> Perfil
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="banner h-64 md:h-80 flex items-center justify-center text-white relative">
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-3xl md:text-5xl font-bold mb-2">Mis Turnos Solicitados</h1>
+            <p class="text-lg md:text-xl">Revisa y gestiona todas tus reservas activas con facilidad.</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        
+        <div class="bg-white p-4 mb-6 rounded-lg shadow-md flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 items-center">
+            
+            <div class="w-full md:w-1/3 relative">
+                <input type="text" id="searchInput" placeholder="Buscar por tipo o fecha..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                <i data-feather="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"></i>
+            </div>
+            
+            <div class="w-full md:w-1/3">
+                <select id="typeFilter" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500">
+                    <option value="all">Filtrar por Tipo (Todos)</option>
+                    <option value="Fútbol">Cancha de Fútbol</option>
+                    <option value="Salón">Salón de Eventos</option>
+                    <option value="Albergue">Albergue</option>
+                </select>
+            </div>
+
+            <div class="w-full md:w-1/3">
+                <select id="statusFilter" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500">
+                    <option value="all">Filtrar por Pago (Todos)</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Seña pagada">Seña pagada</option>
+                    <option value="Pagado total">Pagado total</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="reservation-table overflow-x-auto bg-white rounded-lg shadow">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha / Horario</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duración / Extras</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pago</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="reservationsTableBody">
+                    <tr class="hover:bg-gray-50" data-type="Fútbol" data-status="Seña pagada">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <i data-feather="flag" class="text-green-500 mr-2 w-5 h-5"></i>
+                                <span>Cancha de Fútbol</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">15/10/2023</div>
+                            <div class="text-sm text-gray-500">14:00 - 16:00</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">2 horas</div>
+                            <div class="text-xs text-gray-500">Quincho (1 hora)</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Seña pagada</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap space-x-2 flex items-center">
+                            <button class="text-blue-500 hover:text-blue-700 flex items-center pay-btn">
+                                <i data-feather="dollar-sign" class="w-4 h-4 mr-1"></i> Pagar
+                            </button>
+                            <button class="text-gray-500 hover:text-gray-700 cancel-btn" title="Cancelar">
+                                <i data-feather="trash-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="text-purple-500 hover:text-purple-700" title="Ver Detalles">
+                                <i data-feather="eye" class="w-4 h-4"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    
+                    <tr class="hover:bg-gray-50" data-type="Salón" data-status="Pagado total">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <i data-feather="home" class="text-blue-500 mr-2 w-5 h-5"></i>
+                                <span>Salón de Eventos</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">20/10/2023</div>
+                            <div class="text-sm text-gray-500">18:00 - 22:00</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">4 horas</div>
+                            <div class="text-xs text-gray-500">-</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Pagado total</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap space-x-2 flex items-center">
+                            <button class="text-gray-500 hover:text-gray-700 cancel-btn" title="Cancelar">
+                                <i data-feather="trash-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="text-purple-500 hover:text-purple-700" title="Ver Comprobante">
+                                <i data-feather="download" class="w-4 h-4"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    
+                    <tr class="hover:bg-gray-50 pending-border" data-type="Albergue" data-status="Pendiente">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <i data-feather="users" class="text-purple-500 mr-2 w-5 h-5"></i>
+                                <span>Albergue</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">25/10/2023 - 27/10/2023</div>
+                            <div class="text-sm text-gray-500">Check-in: 14:00</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">2 noches</div>
+                            <div class="text-xs text-gray-500">Desayuno incluido</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Pendiente</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap space-x-2 flex items-center">
+                            <button class="text-blue-500 hover:text-blue-700 flex items-center pay-btn">
+                                <i data-feather="dollar-sign" class="w-4 h-4 mr-1"></i> Pagar
+                            </button>
+                            <button class="text-gray-500 hover:text-gray-700 cancel-btn" title="Cancelar">
+                                <i data-feather="trash-2" class="w-4 h-4"></i>
+                            </button>
+                            <button class="text-green-500 hover:text-green-700" title="Añadir al Calendario">
+                                <i data-feather="calendar-plus" class="w-4 h-4"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="reservation-cards space-y-4 mt-6" id="reservationsCardsContainer">
+            <div class="reservation-card bg-white rounded-lg shadow p-4" data-type="Fútbol" data-status="Seña pagada">
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex items-center">
+                        <i data-feather="flag" class="text-green-500 mr-2 w-5 h-5"></i>
+                        <h3 class="font-bold">Cancha de Fútbol</h3>
+                    </div>
+                    <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Seña pagada</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                    <div><span class="text-gray-500">Fecha:</span> 15/10/2023</div>
+                    <div><span class="text-gray-500">Horario:</span> 14:00 - 16:00</div>
+                    <div><span class="text-gray-500">Duración:</span> 2 horas</div>
+                    <div><span class="text-gray-500">Extras:</span> Quincho (1h)</div>
+                </div>
+                <div class="flex justify-between border-t pt-3">
+                    <button class="text-blue-500 hover:text-blue-700 flex items-center pay-btn text-sm">
+                        <i data-feather="dollar-sign" class="w-4 h-4 mr-1"></i> Pagar
+                    </button>
+                    <div class="space-x-2">
+                        <button class="text-purple-500 hover:text-purple-700" title="Ver Detalles">
+                            <i data-feather="eye" class="w-4 h-4"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700 cancel-btn" title="Cancelar">
+                            <i data-feather="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reservation-card bg-white rounded-lg shadow p-4" data-type="Salón" data-status="Pagado total">
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex items-center">
+                        <i data-feather="home" class="text-blue-500 mr-2 w-5 h-5"></i>
+                        <h3 class="font-bold">Salón de Eventos</h3>
+                    </div>
+                    <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Pagado total</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                    <div><span class="text-gray-500">Fecha:</span> 20/10/2023</div>
+                    <div><span class="text-gray-500">Horario:</span> 18:00 - 22:00</div>
+                    <div><span class="text-gray-500">Duración:</span> 4 horas</div>
+                    <div><span class="text-gray-500">Extras:</span> -</div>
+                </div>
+                <div class="flex justify-end border-t pt-3 space-x-2">
+                    <button class="text-purple-500 hover:text-purple-700" title="Ver Comprobante">
+                        <i data-feather="download" class="w-4 h-4"></i>
+                    </button>
+                    <button class="text-gray-500 hover:text-gray-700 cancel-btn" title="Cancelar">
+                        <i data-feather="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="reservation-card bg-white rounded-lg shadow p-4 pending-border" data-type="Albergue" data-status="Pendiente">
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex items-center">
+                        <i data-feather="users" class="text-purple-500 mr-2 w-5 h-5"></i>
+                        <h3 class="font-bold">Albergue</h3>
+                    </div>
+                    <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">Pendiente</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-sm mb-3">
+                    <div><span class="text-gray-500">Fecha:</span> 25/10 - 27/10</div>
+                    <div><span class="text-gray-500">Check-in:</span> 14:00</div>
+                    <div><span class="text-gray-500">Duración:</span> 2 noches</div>
+                    <div><span class="text-gray-500">Extras:</span> Desayuno</div>
+                </div>
+                <div class="flex justify-between border-t pt-3">
+                    <button class="text-blue-500 hover:text-blue-700 flex items-center pay-btn text-sm">
+                        <i data-feather="dollar-sign" class="w-4 h-4 mr-1"></i> Pagar
+                    </button>
+                    <div class="space-x-2">
+                        <button class="text-green-500 hover:text-green-700" title="Añadir al Calendario">
+                            <i data-feather="calendar-plus" class="w-4 h-4"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700 cancel-btn" title="Cancelar">
+                            <i data-feather="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="noResults" class="hidden bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-6 rounded-lg text-center">
+            <div class="flex items-center justify-center">
+                <i data-feather="alert-triangle" class="text-yellow-500 mr-2 w-5 h-5"></i>
+                <p class="text-sm text-yellow-800 font-medium">
+                    No se encontraron reservas con los filtros y criterios de búsqueda seleccionados.
+                </p>
+            </div>
+            <button onclick="clearFilters()" class="mt-3 text-sm text-blue-500 hover:underline">
+                Reiniciar Filtros
+            </button>
+        </div>
+        
+        <div class="py-12 text-center text-gray-400">
+            <p class="text-xl font-light italic">"El deporte te da la oportunidad de ser mejor cada día."</p>
+            <p class="mt-4 text-sm">Deportivo Patagones, tu lugar para el deporte y eventos.</p>
+        </div>
+        
+
+    </main>
+
+    <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full shadow-2xl">
+            <div class="flex justify-between items-center mb-4 border-b pb-2">
+                <h3 class="text-xl font-bold text-gray-800">Completar Pago</h3>
+                <button onclick="closeModal('paymentModal')" class="text-gray-400 hover:text-gray-700">
+                    <i data-feather="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="mb-4 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                <p class="text-sm mb-2"><i data-feather="flag" class="w-4 h-4 inline mr-1 text-blue-500"></i> Reserva: <span class="font-bold" id="modal-reservation-name">Cancha de Fútbol - 15/10/2023</span></p>
+                <p class="text-lg font-bold text-gray-800">Total a pagar: <span class="text-red-600">$600.00</span></p>
+                <p class="text-xs text-gray-500">Monto total: $1,200.00 | Seña pagada: $600.00</p>
+            </div>
+            <form>
+                <div class="mb-6">
+                    <label class="block mb-2 font-semibold text-gray-700">Método de pago</label>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="paymentMethod" checked class="form-radio text-blue-600">
+                            <i data-feather="credit-card" class="w-5 h-5 text-blue-500"></i>
+                            <span>Tarjeta de crédito/débito</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="paymentMethod" class="form-radio text-blue-600">
+                            <i data-feather="send" class="w-5 h-5 text-green-500"></i>
+                            <span>Transferencia bancaria (CBU)</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                            <input type="radio" name="paymentMethod" class="form-radio text-blue-600">
+                            <i data-feather="map-pin" class="w-5 h-5 text-red-500"></i>
+                            <span>Pagar en la recepción</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('paymentModal')" class="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100 transition">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">Confirmar Pago</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="cancelModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-red-600">Cancelar Reserva</h3>
+                <button onclick="closeModal('cancelModal')" class="text-gray-400 hover:text-gray-700">
+                    <i data-feather="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <p class="mb-4 text-gray-700">¿Estás seguro que deseas cancelar tu turno para <span class="font-bold text-red-600" id="modal-cancel-name">Cancha de Fútbol - 15/10/2023</span>?</p>
+            <p class="text-sm text-gray-500 bg-red-50 p-3 rounded-lg border border-red-200">
+                ⚠️ **Política de Cancelación:** La seña de $600.00 no es reembolsable si la cancelación se realiza con menos de 48 horas de antelación.
+            </p>
+            <div class="flex justify-end space-x-3 mt-6">
+                <button type="button" onclick="closeModal('cancelModal')" class="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100 transition">No, Mantener</button>
+                <button type="button" class="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition">Sí, Cancelar</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h4 class="text-lg font-bold mb-4 flex items-center"><i data-feather="calendar" class="w-5 h-5 mr-2 text-blue-400"></i> Turnos Patagones</h4>
+                <p class="text-sm text-gray-400">Sistema de gestión de reservas en línea para el Deportivo Patagones.</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Secciones</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-blue-400 transition">Reservar un Turno</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Preguntas Frecuentes</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Contacto</h4>
+                <p class="text-sm text-gray-400 flex items-center mb-2"><i data-feather="mail" class="w-4 h-4 mr-2 text-gray-500"></i> info@deportivopatagones.com</p>
+                <p class="text-sm text-gray-400 flex items-center mb-2"><i data-feather="phone" class="w-4 h-4 mr-2 text-gray-500"></i> (2920) 123-4567</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Síguenos</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition"><i data-feather="instagram" class="w-6 h-6"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition"><i data-feather="facebook" class="w-6 h-6"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-8 pt-4 border-t border-gray-800 text-center">
+            <p class="text-xs text-gray-500">© 2023 Deportivo Patagones. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Modal Control Functions ---
+        function openModal(id, reservationName = "") {
+            const modal = document.getElementById(id);
+            if (id === 'paymentModal') {
+                document.getElementById('modal-reservation-name').textContent = reservationName;
+                // Add more logic here to fetch real payment details
+            } else if (id === 'cancelModal') {
+                document.getElementById('modal-cancel-name').textContent = reservationName;
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // --- Event Listeners for Modals ---
+        document.querySelectorAll('.pay-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // In a real app, you would determine the name/date from the row/card data
+                const reservationName = 'Cancha de Fútbol - 15/10/2023'; 
+                openModal('paymentModal', reservationName);
+            });
+        });
+
+        document.querySelectorAll('.cancel-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const reservationName = 'Cancha de Fútbol - 15/10/2023';
+                openModal('cancelModal', reservationName);
+            });
+        });
+
+        // --- Filter and Search Logic ---
+        const tableBody = document.getElementById('reservationsTableBody');
+        const cardsContainer = document.getElementById('reservationsCardsContainer');
+        const searchInput = document.getElementById('searchInput');
+        const typeFilter = document.getElementById('typeFilter');
+        const statusFilter = document.getElementById('statusFilter');
+        const noResults = document.getElementById('noResults');
+
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedType = typeFilter.value;
+            const selectedStatus = statusFilter.value;
+            let resultsFound = 0;
+
+            // Function to process rows/cards
+            function processElements(container) {
+                const elements = container.children;
+                let containerFound = 0;
+                for (let i = 0; i < elements.length; i++) {
+                    const element = elements[i];
+                    const type = element.getAttribute('data-type');
+                    const status = element.getAttribute('data-status');
+                    const textContent = element.textContent.toLowerCase();
+
+                    const matchesSearch = textContent.includes(searchTerm);
+                    const matchesType = selectedType === 'all' || type === selectedType;
+                    const matchesStatus = selectedStatus === 'all' || status === selectedStatus;
+
+                    if (matchesSearch && matchesType && matchesStatus) {
+                        element.style.display = container.tagName === 'TBODY' ? 'table-row' : 'block';
+                        containerFound++;
+                    } else {
+                        element.style.display = 'none';
+                    }
+                }
+                return containerFound;
+            }
+            
+            // Apply to both table rows and mobile cards
+            resultsFound += processElements(tableBody);
+            // We use the same logic for cards since they have the same data attributes.
+            processElements(cardsContainer); 
+            
+            // Show/hide no results message
+            if (resultsFound === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+        
+        function clearFilters() {
+            searchInput.value = '';
+            typeFilter.value = 'all';
+            statusFilter.value = 'all';
+            applyFilters();
+        }
+
+        // Attach event listeners for filters and search
+        searchInput.addEventListener('input', applyFilters);
+        typeFilter.addEventListener('change', applyFilters);
+        statusFilter.addEventListener('change', applyFilters);
+
+        // --- Navbar Scroll Behavior ---
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            // Show nav after scrolling past the banner height (e.g., 200px)
+            if (window.scrollY > 200) { 
+                nav.classList.add('visible');
+            } else {
+                nav.classList.remove('visible');
+            }
+        });
+
+        // --- Initialize Feather Icons and run initial filter ---
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+            applyFilters(); // Run initial filter to ensure everything is visible
+        });
+    </script>
+</body>
+</html>
