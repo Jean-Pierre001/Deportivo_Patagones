@@ -5,10 +5,16 @@
                 <span class="text-xl font-bold">Deportivo Patagones</span>
             </div>
             <div class="flex items-center space-x-6">
-                <a href="index.php" class="hover:text-secondary transition">Inicio</a>
-                <a href="#instalaciones" class="hover:text-secondary transition">Instalaciones</a>
-                <a href="turnos.php" class="hover:text-secondary transition">Reservar</a>
-                <button id="login-btn" class="bg-secondary hover:bg-green-500 px-4 py-2 rounded-lg font-medium transition">
+                <button class="bg-green-600 hover:bg-green-500 px-4 py-1 rounded-lg font-medium transition">
+                    <a href="index.php">Inicio</a>
+                </button>
+                <button class="bg-green-600 hover:bg-green-500 px-4 py-1 rounded-lg font-medium transition">
+                    <a href="#contacto">Contacto</a>
+                </button>
+                <!--<button class="bg-green-600 hover:bg-green-500 px-4 py-1 rounded-lg font-medium transition">
+                    <a href="turnos.php">Reservar</a>
+                </button>-->
+                <button id="login-btn" class="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-lg font-medium transition">
                     Iniciar sesión
                 </button>
             </div>

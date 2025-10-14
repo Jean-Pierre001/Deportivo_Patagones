@@ -110,7 +110,7 @@
                         
                         <button 
                             type="submit" 
-                            class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-medium transition-colors w-full">
+                            class="bg-green-600 hover:bg-green-500 text-white px-6 py-3 rounded-lg font-medium transition-colors w-full">
                             Enviar mensaje
                         </button>
                     </form>

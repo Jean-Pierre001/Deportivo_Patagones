@@ -140,11 +140,7 @@
         </div>
     </section>
 
-    <footer class="bg-gray-800 text-white py-6 mt-12">
-        <div class="container mx-auto px-4 text-center">
-           <p>&copy; 2023 Club Social y Deportivo Patagones. Todos los derechos reservados.</p> 
-        </div>
-    </footer>
+<?php include 'includes/footer.php'; ?>
    <script>
             // --- LÓGICA DE NAVBAR CON OPACIDAD GRADUAL (FADING A NEGRO) ---
             const navbar = document.querySelector('nav');
