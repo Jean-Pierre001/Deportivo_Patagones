@@ -15,24 +15,9 @@
     </script>
     <link rel="stylesheet" href="assets/css/checkout.css">
 </head>
+
 <body class="bg-gray-50 transition-colors duration-300">
-    <nav class="bg-transparent text-white sticky top-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <img src="assets/img/escudo.png" alt="Escudo C. S. y D. P." class="navbar-shield">
-                <span class="text-xl font-bold">Deportivo Patagones</span>
-            </div>
-            <div class="flex items-center space-x-6">
-                <a href="index.php" class="hover:text-secondary transition">Inicio</a>
-                <a href="index.php" class="hover:text-secondary transition">Instalaciones</a>
-                <a href="turnos.php" class="hover:text-secondary transition">Reservar</a>
-                <button id="login-btn" class="bg-secondary hover:bg-green-500 px-4 py-2 rounded-lg font-medium transition">
-                    Iniciar sesión
-                </button>
-            </div>
-        </div>
-    </nav>
-    
+    <?php include 'includes/navbar.php'; ?>
     <header class="hero-image-background-checkout text-white py-12 -mt-[65px] pt-[100px]">
         <div class="container mx-auto px-4 header-content">
             <h1 class="text-3xl font-bold">Checkout y Pago de Seña</h1>
@@ -79,7 +64,7 @@
                         <h3 class="text-xl font-bold mb-4 text-gray-900">Pagar Ahora</h3>
                         <p class="text-sm text-gray-600 mb-4">El pago de la seña garantiza tu reserva. El saldo restante se abona al ingresar.</p>
                         
-                        <button id="process-payment-btn" class="w-full bg-mercadopago hover:bg-yellow-500 text-gray-900 py-3 rounded-lg font-bold transition shadow-md">
+                        <button id="process-payment-btn" class="w-full bg-yellow-500 hover:bg-yellow-400 text-gray-900 py-3 rounded-lg font-bold transition shadow-md">
                             Pagar Seña con MercadoPago
                         </button>
                     </div>
@@ -103,13 +88,7 @@
         </div>
     </div>
 
-    <footer class="bg-gray-800 text-white py-12 mt-10">
-        <div class="container mx-auto px-4">
-            <div class="border-t border-gray-700 pt-8 text-center">
-                <p>&copy; 2023 Club Social y Deportivo Patagones.</p>
-            </div>
-        </div>
-    </footer>
+    <?php include 'includes/footer.php'; ?>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

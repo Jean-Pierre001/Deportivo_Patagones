@@ -5,11 +5,11 @@
                 <span class="text-xl font-bold">Deportivo Patagones</span>
             </div>
             <div class="flex items-center space-x-6">
-                <button class="bg-green-600 hover:bg-green-500 px-4 py-1 rounded-lg font-medium transition">
-                    <a href="index.php">Inicio</a>
+                <button>
+                    <a class="bg-green-600 hover:bg-green-500 px-4 py-1 rounded-lg font-medium transition" href="index.php">Inicio</a>
                 </button>
-                <button class="bg-green-600 hover:bg-green-500 px-4 py-1 rounded-lg font-medium transition">
-                    <a href="#contacto">Contacto</a>
+                <button>
+                    <a class="bg-green-600 hover:bg-green-500 px-4 py-1 rounded-lg font-medium transition" href="#contacto">Contacto</a>
                 </button>
                 <!--<button class="bg-green-600 hover:bg-green-500 px-4 py-1 rounded-lg font-medium transition">
                     <a href="turnos.php">Reservar</a>

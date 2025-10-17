@@ -130,7 +130,7 @@
                             </div>
                         </div>
                         
-                        <button id="go-to-checkout-btn" class="w-full bg-secondary hover:bg-green-500 text-white py-3 rounded-lg font-bold transition">
+                        <button id="go-to-checkout-btn" class="w-full bg-green-600 hover:bg-green-500 text-white py-3 rounded-lg font-bold transition">
                             Pagar Seña y Continuar
                         </button>
                         <p class="text-xs text-center text-gray-500 mt-2">Serás redirigido a la página de pago.</p>
