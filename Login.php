@@ -4,7 +4,7 @@
 // -----------------------------------------------------------
 
 // 1. Incluir el archivo de conexión
-require_once 'includes/prueba.php'; 
+require_once 'prueba.php'; 
 
 // Variable para mensajes de estado
 $message = '';
@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     $_SESSION['username'] = $user['username'];
                     
                     // Redirigir al usuario
-                    header('Location: dashboard.php'); // Reemplaza con tu página de inicio de sesión exitoso
+                    header('Location: index.php'); // Reemplaza con tu página de inicio de sesión exitoso
                     exit;
 
                 } else {
@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         <div class="px-8 pt-8 text-center">
             <div class="logo-container inline-block mb-4">
                 <div class="bg-red-100 p-4 rounded-full">
-                    <i class="fas fa-running text-3xl text-red-500"></i>
+                    <img src="assets/img/escudo.png" width="90" height="90" alt="escudo" > 
                 </div>
             </div>
             <h2 class="text-2xl font-bold text-gray-800 mb-1">Deportivo Patagones</h2>
